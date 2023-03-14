@@ -38,18 +38,18 @@ class MainActivity : AppCompatActivity() {
 //        })
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.github.com/users/MENasri23")
+            .baseUrl("https://api.github.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val service = retrofit.create(GithubApiService::class.java)
-        service.getUser().enqueue(object : Callback<ResponseBody>{
-            override fun onFailure(call: retrofit2.Call<ResponseBody>, t: Throwable) {
+        service.getUser().enqueue(object : Callback<User>{
+            override fun onFailure(call: Call<User>, t: Throwable) {
 
             }
             override fun onResponse(
-                call: retrofit2.Call<ResponseBody>,
-                response:Response<ResponseBody>){
-                val json = response.body()?.string()
+                call: retrofit2.Call<User>,
+                response:Response<User>){
+                val json = response.body()?.toString()
                 runOnUiThread {
                     findViewById<TextView>(R.id.txt).text = json
                 }
